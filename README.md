@@ -12,7 +12,7 @@ Docker is an open platform for developing, shipping, and running applications. D
 
 1. I just learned Docker and I already had this script so I wanted to put what I learned into practice.
 
-2. Not everyone has Python on their machine so this allows you to execute the script without having Python on your machine
+2. Not everyone has Python on their machine so this allows you to execute the script without having Python on your machine.
 
 ## How do I run this?
 
