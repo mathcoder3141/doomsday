@@ -17,7 +17,7 @@ Docker is an open platform for developing, shipping, and running applications. D
 ## How do I run this?
 
 1. Clone this repository and move into the directory
-   - `git clone git@github.com:mathcoder3141/doomsday.git && cd doomsday
+   - `git clone git@github.com:mathcoder3141/doomsday.git && cd doomsday`
 
 2. Install Docker using the following link:
    - [Get Docker](https://docs.docker.com/get-docker/)
