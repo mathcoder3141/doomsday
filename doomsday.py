@@ -3,10 +3,14 @@ from constants import *
 
 
 def date_prompt():
+    """
+    Prompts the user to enter a month, year, and date.
+
+    :return: A tuple of the entered month, date as an integer, and the year.
+    """
     month = input('Enter a month: ')
     while month not in months:
         month = input('Enter a valid month: ')
-
     year = input('Enter a year greater than 1582: ')
     while float(year) < 1582:
         year = input('Enter a valid year: ')
@@ -25,6 +29,12 @@ def date_prompt():
 
 
 def doomsday_calc(year):
+    """
+    Calculates the doomsday for a given year.
+
+    :param year: The year parameter that the user entered.
+    :return: An integer representing the doomsday for a given year.
+    """
     ltd = year[2:]
     ftd = year[:2]
     mil = ftd + "00"
@@ -44,10 +54,18 @@ def doomsday_calc(year):
 
 
 def doomsday_dec(d_cal, month, day, year, doo):
+    """
+    Function prints what day of the week of the entered day.
+
+    :param d_cal: The calculated doomsday from the `doomsday_calc()` function.
+    :param month: The month the user entered.
+    :param day: The day the user entered.
+    :param year: The year the user entered.
+    :param doo: The doomsday for the given month.
+    :return: This function returns nothing because it prints the output.
+    """
     if d_cal == 0:
-        print("Doomsday for {} {} was a Sunday".format(month, year))
         while day < doo:
-            print("{} is a Sunday".format(doo))
             doo -= 7
         daydiff = abs(doo - day)
         if daydiff == 0:
@@ -66,9 +84,7 @@ def doomsday_dec(d_cal, month, day, year, doo):
             print("{} {} {} was a Saturday".format(month, day, year))
 
     elif d_cal == 1:
-        print("Doomsday for {} {} was a Monday".format(month, year))
         while doo > day:
-            print("{} is a Monday".format(doo))
             doo -= 7
         daydiff = abs(doo - day)
         if daydiff == 0:
@@ -87,9 +103,7 @@ def doomsday_dec(d_cal, month, day, year, doo):
             print("{} {} {} was a Sunday".format(month, day, year))
 
     elif d_cal == 2:
-        print("Doomsday for {} {} was a Tuesday".format(month, year))
         while doo > day:
-            print("{} is a Tuesday".format(doo))
             doo -= 7
         daydiff = abs(doo - day)
         if daydiff == 0:
@@ -108,9 +122,7 @@ def doomsday_dec(d_cal, month, day, year, doo):
             print("{} {} {} was a Monday".format(month, day, year))
 
     elif d_cal == 3:
-        print("Doomsday for {} {} was a Wednesday".format(month, year))
         while doo > day:
-            print("{} is a Wednesday".format(doo))
             doo -= 7
         daydiff = abs(doo - day)
         if daydiff == 0:
@@ -129,9 +141,7 @@ def doomsday_dec(d_cal, month, day, year, doo):
             print("{} {} {} was a Tuesday".format(month, day, year))
 
     elif d_cal == 4:
-        print("Doomsday for {} {} was a Thursday".format(month, year))
         while doo > day:
-            print("{} is a Thursday".format(doo))
             doo -= 7
         daydiff = abs(doo - day)
         if daydiff == 0:
@@ -150,9 +160,7 @@ def doomsday_dec(d_cal, month, day, year, doo):
             print("{} {} {} was a Wednesday".format(month, day, year))
 
     elif d_cal == 5:
-        print("Doomsday for {} {} was a Friday".format(month, year))
         while doo > day:
-            print("{} is a Friday".format(doo))
             doo -= - 7
         daydiff = abs(doo - day)
         if daydiff == 0:
@@ -171,9 +179,7 @@ def doomsday_dec(d_cal, month, day, year, doo):
             print("{} {} {} was a Sunday".format(month, day, year))
 
     else:
-        print("Doomsday for {} {} was a Saturday".format(month, year))
         while doo > day:
-            print("{} is also a Saturday".format(doo))
             doo -= 7
         daydiff = abs(doo - day)
         if daydiff == 0:
@@ -192,21 +198,27 @@ def doomsday_dec(d_cal, month, day, year, doo):
             print("{} {} {} was a Friday".format(month, day, year))
 
 
-user_m, user_d, user_y = date_prompt()
-confirm = input(f"You entered {user_d} {user_m} {user_y}. Is this correct (y/n)? ")
-while confirm.lower().startswith('n'):
-    date_prompt()
+def doomsday():
+    user_m, user_d, user_y = date_prompt()
     confirm = input(f"You entered {user_d} {user_m} {user_y}. Is this correct (y/n)? ")
+    while confirm.lower().startswith('n'):
+        date_prompt()
+        confirm = input(f"You entered {user_d} {user_m} {user_y}. Is this correct (y/n)? ")
 
-if int(user_y) % 400 == 0 and int(user_y) % 4 == 0:
-    doomsday = doomsday_calc(user_y)
-    doom = doomsday_LY[user_m]
-    doomsday_dec(doomsday, user_m, user_d, user_y, doo=doom)
-elif int(user_y) % 4 == 0:
-    doomsday = doomsday_calc(user_y)
-    doom = doomsday_LY[user_m]
-    doomsday_dec(doomsday, user_m, user_d, user_y, doo=doom)
-else:
-    doomsday = doomsday_calc(user_y)
-    doom = doomsday_NLY[user_m]
-    doomsday_dec(doomsday, user_m, user_d, user_y, doo=doom)
+    if int(user_y) % 400 == 0 and int(user_y) % 4 == 0:
+        doomsday = doomsday_calc(user_y)
+        doom = doomsday_LY[user_m]
+        result = str(doomsday_dec(doomsday, user_m, user_d, user_y, doo=doom))
+    elif int(user_y) % 4 == 0:
+        doomsday = doomsday_calc(user_y)
+        doom = doomsday_LY[user_m]
+        result = str(doomsday_dec(doomsday, user_m, user_d, user_y, doo=doom))
+    else:
+        doomsday = doomsday_calc(user_y)
+        doom = doomsday_NLY[user_m]
+        statement = doomsday_dec(doomsday, user_m, user_d, user_y, doo=doom)
+        result = str(statement)
+    return result
+
+if __name__ == "__main__":
+    doomsday()
